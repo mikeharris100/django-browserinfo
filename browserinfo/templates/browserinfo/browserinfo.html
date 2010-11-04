@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <span id="status">Collecting information...</span>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+
+    {% load jquery_browserinfo %}
+    {% include_browserinfo %}
+    
+    <script type="text/javascript">
+        $(document).ready(function(){ 
+            browserinfo.harvest('{% url browserinfo %}', {callback: function(data){
+                if(data.success){
+                    $('#status').text('Data Sent');    
+                }else{
+                    $('#status').text('Error');
+                }
+            }});
+        });
+    </script>
+
+{% endblock content %}
+
+
